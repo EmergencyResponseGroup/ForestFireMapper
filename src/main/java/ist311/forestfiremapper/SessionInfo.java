@@ -5,6 +5,7 @@
  */
 package ist311.forestfiremapper;
 
+import java.util.HashMap;
 import javafx.stage.Stage;
 
 /**
@@ -14,7 +15,7 @@ import javafx.stage.Stage;
 public class SessionInfo {
     
     private Stage stage;
-    private UserHashMap<String, User> userHashMap;
+    private HashMap<String, User> userHashMap;
     private User currentUser;
     
     public SessionInfo(Stage stage) {
@@ -31,7 +32,7 @@ public class SessionInfo {
         // Value: new User(...)
         
         // Creates admin user
-        User admin = new User("Admin", "Admin", "Admin", new Location("Admin"));
+        User admin = new User("Admin", "Admin", "Admin", new Location(99,99));
         admin.setAdmin(true);
         getUserHashMap().put(admin.getUsername(), admin);
         
@@ -49,7 +50,7 @@ public class SessionInfo {
         return stage;
     }
 
-    public UserHashMap<String, User> getUserHashMap() {
+    public HashMap<String, User> getUserHashMap() {
         return userHashMap;
     }
     

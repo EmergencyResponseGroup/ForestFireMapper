@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane id="AnchorPane" prefHeight="254.0" prefWidth="444.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ist311.forestfiremapper.ErrorPopupViewController">
+   <children>
+      <HBox alignment="CENTER" layoutX="-4.0" layoutY="-5.0" prefHeight="263.0" prefWidth="454.0">
+         <children>
+            <Label fx:id="errorMessage" text="Error" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

@@ -10,20 +10,25 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
  *
  * @author dging
  */
-public class EditUsersViewController extends ViewController{
-    
+public class EditUsersViewController extends ViewController {
+
     @FXML
     TableView<User> userTableView;
     @FXML
@@ -33,27 +38,33 @@ public class EditUsersViewController extends ViewController{
     @FXML
     CheckBox isAdminCheckBox;
     @FXML
-    TextField nameTextField, usernameTextField, passwordTextField, locationTextField;
-    
+    TextField nameField, usernameField, passwordField, latitudeField, longitudeField;
+
     /**
      * Initializes the controller class.
      */
     public void initialize() {
-        
+
         saveChangesBtn.setOnAction((ActionEvent j) -> {
-            
-            User selectedUser = (User) sessionInfo.getUserHashMap().get(usernameTextField.getText());
-            
-            selectedUser.setName(nameTextField.getText());
-            selectedUser.setUsername(usernameTextField.getText());
-            selectedUser.setPassword(passwordTextField.getText());
-            selectedUser.setLocation(new Location(locationTextField.getText()));
-            selectedUser.setAdmin(isAdminCheckBox.isSelected());
-            
-            sessionInfo.getUserHashMap().replace(usernameTextField.getText(), selectedUser);
-            
+
+            try {
+                User selectedUser = (User) sessionInfo.getUserHashMap().get(usernameField.getText());
+
+                selectedUser.setName(nameField.getText());
+                selectedUser.setUsername(usernameField.getText());
+                selectedUser.setPassword(passwordField.getText());
+                selectedUser.setLocation(new Location(Double.parseDouble(latitudeField.getText()), Double.parseDouble(longitudeField.getText())));
+                selectedUser.setAdmin(isAdminCheckBox.isSelected());
+
+                sessionInfo.getUserHashMap().replace(usernameField.getText(), selectedUser);
+            } catch (NumberFormatException numberFormatException) {
+
+                createErrorPopup("Error - make sure all input is correct.");
+                
+            }
+
         });
-        
+
         menuBtn.setOnAction((ActionEvent e) -> {
             try {
                 setFXMLView("/fxml/NavigationView.fxml");
@@ -61,26 +72,41 @@ public class EditUsersViewController extends ViewController{
                 Logger.getLogger(EditUsersViewController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        
-    }    
+
+    }
 
     private void showSelectedUserInfo() {
+
+        //Sets buttons visible
+        saveChangesBtn.setVisible(true);
+        isAdminCheckBox.setVisible(true);
+        nameField.setVisible(true);
+        usernameField.setVisible(true);
+        passwordField.setVisible(true);
+        longitudeField.setVisible(true);
+        latitudeField.setVisible(true);
+
         User selectedUser = userTableView.getSelectionModel().getSelectedItem();
-        nameTextField.setText(selectedUser.getName());
-        usernameTextField.setText(selectedUser.getUsername());
-        passwordTextField.setText(selectedUser.getPassword());
-        locationTextField.setText(selectedUser.getLocation().getLocation());
+
+        if (selectedUser.isAdmin()) {
+            isAdminCheckBox.setVisible(true);
+        } else {
+            isAdminCheckBox.setVisible(false);
+        }
+
+        nameField.setText(selectedUser.getName());
+        usernameField.setText(selectedUser.getUsername());
+        passwordField.setText(selectedUser.getPassword());
+        latitudeField.setText(String.valueOf(selectedUser.getLocation().getLatitude()));
+        longitudeField.setText(String.valueOf(selectedUser.getLocation().getLongitude()));
         isAdminCheckBox.setSelected(selectedUser.isAdmin());
     }
-    
+
     @Override
     public void finishInitialization() {
         usernameTableColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
         nameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        
-        userTableView.getColumns().add(usernameTableColumn);
-        userTableView.getColumns().add(nameTableColumn);
-        
+
         if (sessionInfo.getCurrentUser().isAdmin()) {
             // Shows all user information
             sessionInfo.getUserHashMap().forEach((username, user) -> userTableView.getItems().add((User) user));
@@ -88,11 +114,13 @@ public class EditUsersViewController extends ViewController{
             // Shows only user info
             userTableView.getItems().add(sessionInfo.getCurrentUser());
         }
-        
+
         userTableView.setOnMouseClicked(e -> {
             showSelectedUserInfo();
         });
-        
+
     }
-    
+
+
+
 }

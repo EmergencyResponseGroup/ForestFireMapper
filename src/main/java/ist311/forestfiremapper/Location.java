@@ -14,8 +14,9 @@ public class Location {
     private double latitude;
     private double longitude;
     
-    public Location(String location) {
-        this.location = location;
+    public Location(double latitude, double longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
     
     public String getLocation() {
@@ -26,10 +27,6 @@ public class Location {
         this.location = location;
     }
     
-    public Location(double latitude, double longitude) {
-        this.latitude = latitude;
-        this.longitude = longitude;
-    }
 
     /**
      * @return the latitude

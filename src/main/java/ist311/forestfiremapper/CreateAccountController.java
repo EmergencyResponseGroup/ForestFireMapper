@@ -21,17 +21,11 @@ import javafx.scene.control.TextField;
 public class CreateAccountController extends ViewController{
 
     @FXML
-    private TextField usernameField;
-    @FXML
     private PasswordField passwordField;
     @FXML
-    private TextField nameField;
+    private TextField usernameField, nameField, latitudeField, longitudeField;
     @FXML
-    private TextField locationField;
-    @FXML
-    private Button createAccountBtn;
-    @FXML
-    private Button goBackBtn;
+    private Button createAccountBtn, goBackBtn;
 
     public void initialize() {
         initializeCreateAccountBtn();
@@ -40,18 +34,23 @@ public class CreateAccountController extends ViewController{
 
     private void initializeCreateAccountBtn() {
         createAccountBtn.setOnAction((ActionEvent e) -> {
-            String username = usernameField.getText();
-            String password = passwordField.getText();
-            String name = nameField.getText();
-            String location = locationField.getText();
-            if (!sessionInfo.getUserHashMap().containsKey(username)) {
-                sessionInfo.getUserHashMap().put(username, new User(username, password, name, new Location(location)));
-                try {
-                    setFXMLView("/fxml/LoginView.fxml");
-                } catch (IOException ex) {
-                    Logger.getLogger(CreateAccountController.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                String username = usernameField.getText();
+                String password = passwordField.getText();
+                String name = nameField.getText();
+                Double latitude = Double.parseDouble(latitudeField.getText());
+                Double longitude = Double.parseDouble(longitudeField.getText());
+                if (!sessionInfo.getUserHashMap().containsKey(username)) {
+                    sessionInfo.getUserHashMap().put(username, new User(username, password, name, new Location(latitude, longitude)));
+                    try {
+                        setFXMLView("/fxml/LoginView.fxml");
+                    } catch (IOException ex) {
+                        Logger.getLogger(CreateAccountController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
                 }
-                
+            } catch (NumberFormatException numberFormatException) {
+                createErrorPopup("Error - make sure all input is correct");
             }
         });
     }

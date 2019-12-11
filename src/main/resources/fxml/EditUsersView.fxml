@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ist311.forestfiremapper.EditUsersViewController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ist311.forestfiremapper.EditUsersViewController">
    <children>
       <GridPane prefHeight="517.0" prefWidth="678.0">
         <columnConstraints>
@@ -33,18 +33,20 @@
             </TableView>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                <children>
-                  <Button fx:id="saveChangesBtn" layoutX="215.0" layoutY="472.0" mnemonicParsing="false" text="Save Changes" />
-                  <Text layoutX="35.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:" />
-                  <Text layoutX="35.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" />
-                  <Text layoutX="35.0" layoutY="260.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:" />
-                  <Text layoutX="35.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location:" />
-                  <CheckBox fx:id="isAdminCheckBox" layoutX="300.0" layoutY="365.0" mnemonicParsing="false" />
-                  <Text layoutX="35.0" layoutY="380.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Admin:" />
-                  <TextField fx:id="nameTextField" layoutX="135.0" layoutY="120.0" />
-                  <TextField fx:id="usernameTextField" layoutX="135.0" layoutY="180.0" />
-                  <TextField fx:id="passwordTextField" layoutX="135.0" layoutY="240.0" />
-                  <TextField fx:id="locationTextField" layoutX="135.0" layoutY="300.0" />
-                  <Button fx:id="menuBtn" layoutX="271.0" layoutY="14.0" mnemonicParsing="false" text="Menu" />
+                  <Button fx:id="saveChangesBtn" layoutX="215.0" layoutY="472.0" mnemonicParsing="false" text="Save Changes" visible="false" />
+                  <Text layoutX="35.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:" />
+                  <Text layoutX="35.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" />
+                  <Text layoutX="35.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:" />
+                  <Text layoutX="35.0" layoutY="290.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Latitude" />
+                  <CheckBox fx:id="isAdminCheckBox" layoutX="300.0" layoutY="390.0" mnemonicParsing="false" visible="false" />
+                  <Text layoutX="35.0" layoutY="410.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Admin:" />
+                  <TextField fx:id="nameField" layoutX="135.0" layoutY="90.0" visible="false" />
+                  <TextField fx:id="usernameField" layoutX="135.0" layoutY="150.0" visible="false" />
+                  <TextField fx:id="passwordField" layoutX="135.0" layoutY="210.0" visible="false" />
+                  <TextField fx:id="latitudeField" layoutX="135.0" layoutY="270.0" visible="false" />
+                  <Button fx:id="menuBtn" layoutX="263.0" layoutY="14.0" mnemonicParsing="false" text="Menu" />
+                  <Text layoutX="35.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Longitude" />
+                  <TextField fx:id="longitudeField" layoutX="135.0" layoutY="330.0" visible="false" />
                </children>
             </AnchorPane>
          </children>
