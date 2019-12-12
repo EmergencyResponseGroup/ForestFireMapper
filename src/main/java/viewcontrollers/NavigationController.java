@@ -3,14 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ist311.forestfiremapper;
+package viewcontrollers;
 
+import ist311.forestfiremapper.Location;
+import ist311.forestfiremapper.LocationList;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 
 /**
  * FXML Controller class
@@ -21,6 +32,8 @@ public class NavigationController extends ViewController{
     
     @FXML
     Button editUsersBtn, logoutBtn;
+    
+    private CloseableHttpClient httpClient = HttpClients.createDefault();
     
     public void initialize() {
         
@@ -43,9 +56,27 @@ public class NavigationController extends ViewController{
             
         });
         
+        
     }    
 
     @Override
-    public void finishInitialization() {}
+    public void finishInitialization() {
+        HttpGet request = new HttpGet("http://34.67.165.237:3000/results");
+        try (CloseableHttpResponse response = httpClient.execute(request)) {
+            HttpEntity entity = response.getEntity();
+            Header headers = entity.getContentType();
+            String result = EntityUtils.toString(entity);
+            Jsonb jsonb = JsonbBuilder.create();
+            LocationList locationList = jsonb.fromJson(result, LocationList.class);
+            Location[] locations = locationList.locations;
+            for (int i = 0; i < locations.length; i++) {
+                if (sessionInfo.getCurrentUser().getLocation().distanceTo(locations[i].latitude, locations[i].longitude) <= 10.0) {
+                    createErrorPopup("Warning! You are within 10 miles of a fire location retrieved from our web service.");
+                }
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(NavigationController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
 }

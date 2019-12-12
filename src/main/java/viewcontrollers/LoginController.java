@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ist311.forestfiremapper;
+package viewcontrollers;
 
+import ist311.forestfiremapper.User;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

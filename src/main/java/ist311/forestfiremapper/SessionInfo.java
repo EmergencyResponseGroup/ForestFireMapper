@@ -26,7 +26,7 @@ public class SessionInfo {
     }
     
     private void initializeUserHashMap() {
-        userHashMap = new UserHashMap<>();
+        userHashMap = new HashMap<>();
         // To add a user, put a new user in UserHashMap
         // Key: Username (usernameField.getText())
         // Value: new User(...)

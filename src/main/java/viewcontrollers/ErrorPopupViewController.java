@@ -1,4 +1,4 @@
-package ist311.forestfiremapper;
+package viewcontrollers;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

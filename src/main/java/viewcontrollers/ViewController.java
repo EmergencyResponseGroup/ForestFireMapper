@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ist311.forestfiremapper;
+package viewcontrollers;
 
+import ist311.forestfiremapper.SessionInfo;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,6 +44,8 @@ public abstract class ViewController {
             Stage popupStage = new Stage();
             popupStage.setScene(new Scene(root));
             popupStage.show();
+            popupStage.requestFocus();
+            popupStage.toFront();
         } catch (IOException ex) {
             Logger.getLogger(EditUsersViewController.class.getName()).log(Level.SEVERE, null, ex);
         }

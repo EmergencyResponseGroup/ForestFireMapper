@@ -11,12 +11,16 @@ package ist311.forestfiremapper;
  */
 public class Location {
     private String location;
-    private double latitude;
-    private double longitude;
+    public double latitude;
+    public double longitude;
     
     public Location(double latitude, double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
+    }
+    
+    public Location() {
+        
     }
     
     public String getLocation() {
